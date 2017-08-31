@@ -75,9 +75,14 @@ class ImagePrinter implements Printer<Bitmap> {
 			}
 		}
 		
+		var filled = []; // TODO: fix this quick but dirty way
 		function fillExtraEyeBorder(x, y)
-			if(blockAverageColor(x, y).intensity() < 1 - intensityThreshold)
-				fillBlock(x, y, 0, blockSize, white);
+			if(blockAverageColor(x, y).intensity() < 1 - intensityThreshold) {
+				if(filled.indexOf('$x-$y') == -1) {
+					fillBlock(x, y, 0, blockSize, white);
+					filled.push('$x-$y');
+				}
+			}
 		
 		for(x in -1...8) {
 			fillExtraEyeBorder(x, -1);
