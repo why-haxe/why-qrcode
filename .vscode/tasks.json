@@ -1,0 +1,10 @@
+{
+    "version": "2.0.0",
+    "isShellCommand": true,
+    "command": "haxelib run travix node",
+    "problemMatcher": "$haxe",
+    "group": {
+        "kind": "build",
+        "isDefault": true
+    }
+}
