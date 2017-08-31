@@ -50,17 +50,3 @@ extern class PNG extends Writable<PNG> {
 	var height:Int;
 	var data:Buffer;
 }
-
-typedef Png = {
-	width:Int,
-	height:Int,
-	depth:Int,
-	interlace:Bool,
-	palette:Bool,
-	color:Bool,
-	alpha:Bool,
-	bpp:Int,
-	colorType:Int,
-	data:Buffer,
-	gamma:Int,
-}
