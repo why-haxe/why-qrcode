@@ -75,22 +75,26 @@ class ImagePrinter implements Printer<Bitmap> {
 			}
 		}
 		
+		function fillExtraEyeBorder(x, y)
+			if(blockAverageColor(x, y).intensity() < 1 - intensityThreshold)
+				fillBlock(x, y, 0, blockSize, white);
+		
 		for(x in -1...8) {
-			fillBlock(x, -1, 0, blockSize, white);
-			fillBlock(x, data.size, 0, blockSize, white);
+			fillExtraEyeBorder(x, -1);
+			fillExtraEyeBorder(x, data.size);
 		}
 		
 		for(y in -1...8) {
-			fillBlock(-1, y, 0, blockSize, white);
-			fillBlock(data.size, y, 0, blockSize, white);
+			fillExtraEyeBorder(-1, y);
+			fillExtraEyeBorder(data.size, y);
 		}
 		
 		for(x in data.size-8...data.size+1) {
-			fillBlock(x, -1, 0, blockSize, white);
+			fillExtraEyeBorder(x, -1);
 		}
 		
 		for(y in data.size-8...data.size+1) {
-			fillBlock(-1, y, 0, blockSize, white);
+			fillExtraEyeBorder(-1, y);
 		}
 		
 		return bitmap;
