@@ -13,9 +13,9 @@ class RunTests {
 		var width = 392, height = 392, size = 200;
 		Promise.inParallel([
 			run({}, 'code-full'),
-			run({canvas:{x: 10, y: 10, size: size}}, 'code-top-left'),
-			run({canvas:{x: (width - size) >> 1, y: (height - size) >> 1, size: size}}, 'code-middle'),
-			run({canvas:{x:width - size - 10, y: height - size - 10, size: size}}, 'code-bottom-right'),
+			// run({canvas:{x: 10, y: 10, size: size}}, 'code-top-left'),
+			// run({canvas:{x: (width - 300) >> 1, y: 0, size: 300}}, 'code-middle'),
+			// run({canvas:{x:width - size - 10, y: height - size - 10, size: size}}, 'code-bottom-right'),
 		]).handle(function(o) trace(Std.string(o)));
 	}
 	
@@ -23,7 +23,7 @@ class RunTests {
 		var encoder = new NodeEncoder();
 		var filename = 'haxe';
 		var png = null;
-		return encoder.encode('https://github.com/kevinresol/qrcode')
+		return encoder.encode('https://haxe.org/')
 			.next(function(data) {
 				var bytes = File.getBytes('tests/$filename.png');
 				var buffer = Buffer.hxFromBytes(bytes);

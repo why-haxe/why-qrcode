@@ -16,7 +16,4 @@ See tests folder
 
 #### With QR Code
 
-![Whole](tests/haxe-code-full.png)
-![Middle](tests/haxe-code-middle.png)
-![Top Left](tests/haxe-code-top-left.png)
-![Buttom Right](tests/haxe-code-bottom-right.png)
+![Code](tests/haxe-code-full.png)
