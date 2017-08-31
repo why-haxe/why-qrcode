@@ -1,8 +1,8 @@
 package ;
 
-import haxe.io.*;
-import qrcode.encoder.*;
+import qrcode.encoder.NodeEncoder;
 import qrcode.printer.ImagePrinter;
+import qrcode.helper.png.NodePngCodec;
 import js.node.Buffer;
 import sys.io.File;
 using tink.CoreApi;
@@ -11,6 +11,7 @@ class RunTests {
 
 	static function main() {
 		var width = 392, height = 392, size = 200;
+		
 		Promise.inParallel([
 			run({}, 'code-full'),
 			// run({canvas:{x: 10, y: 10, size: size}}, 'code-top-left'),
@@ -22,41 +23,14 @@ class RunTests {
 	static function run(options, suffix) {
 		var encoder = new NodeEncoder();
 		var filename = 'haxe';
-		var png = null;
 		return encoder.encode('https://haxe.org/')
 			.next(function(data) {
-				var bytes = File.getBytes('tests/$filename.png');
-				var buffer = Buffer.hxFromBytes(bytes);
-				png = PNG.read(buffer);
-				var bitmap = new Bitmap(png.width, png.height, png.data.hxToBytes(), RGBA);
-				return new ImagePrinter(bitmap, options).print(data);
+				return NodePngCodec.bitmapFromFile('tests/$filename.png')
+					.next(function(bitmap) return new ImagePrinter(bitmap, options).print(data));
 			})
 			.next(function(bitmap) {
-				png.data = Buffer.hxFromBytes(bitmap.pixels);
-				var buffer = PNG.write(png);
-				File.saveBytes('tests/$filename-$suffix.png', buffer.hxToBytes());
-				return Noise;
+				return NodePngCodec.bitmapToFile(bitmap, 'tests/$filename-$suffix.png');
 			});
 	}
 
-}
-
-@:jsRequire('pngjs', 'PNG.sync')
-extern class PNG {
-	static function read(buffer:Buffer):Png;
-	static function write(png:Png):Buffer;
-}
-
-typedef Png = {
-	width:Int,
-	height:Int,
-	depth:Int,
-	interlace:Bool,
-	palette:Bool,
-	color:Bool,
-	alpha:Bool,
-	bpp:Int,
-	colorType:Int,
-	data:Buffer,
-	gamma:Int,
 }
