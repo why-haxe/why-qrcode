@@ -118,19 +118,24 @@ class Bitmap {
 	}
 	
 	public function setPixel(x, y, pixel:Pixel) {
-		var offset = (y * width + x) * 4;
+		var offset = (y * width + x) << 2;
 		switch format {
 			case BGRA:
 				pixels.set(offset + 0, pixel.b);
 				pixels.set(offset + 1, pixel.g);
 				pixels.set(offset + 2, pixel.r);
 				pixels.set(offset + 3, pixel.a);
+			case RGBA:
+				pixels.set(offset + 0, pixel.r);
+				pixels.set(offset + 1, pixel.g);
+				pixels.set(offset + 2, pixel.b);
+				pixels.set(offset + 3, pixel.a);
 		}
 	}
 	
 	public function getPixel(x, y):Pixel {
 		var r, g, b, a;
-		var offset = (y * width + x) * 4;
+		var offset = (y * width + x) << 2;
 		var data = pixels.getData();
 		
 		return new Pixel(
@@ -146,7 +151,7 @@ class Bitmap {
 		var v0 = 0, v1 = 0, v2 = 0, v3 = 0;
 		var data = pixels.getData();
 		for(i in x...x+w) for(j in y...y+h) {
-			var offset = (j * width + i) * 4;
+			var offset = (j * width + i) << 2;
 			v0 += Bytes.fastGet(data, offset + 0);
 			v1 += Bytes.fastGet(data, offset + 1);
 			v2 += Bytes.fastGet(data, offset + 2);
@@ -183,6 +188,7 @@ class Pixel {
 	public static function make(v:{r:Int, g:Int, b:Int, a:Int}, format)
 		return switch format {
 			case BGRA: new Pixel(v.b<<24 | v.g<<16 | v.r<<8 | v.a, format);
+			case RGBA: new Pixel(v.r<<24 | v.g<<16 | v.b<<8 | v.a, format);
 		}
 	
 	public function new(value, format) {
@@ -191,9 +197,7 @@ class Pixel {
 	}
 	
 	public function intensity() {
-		return switch format {
-			case BGRA: .3 * r / 255 + .59 * g / 255 + .11 * b / 255;
-		}
+		return .3 * r / 255 + .59 * g / 255 + .11 * b / 255;
 	}
 	
 	// stamp another pixel over this pixel
@@ -216,24 +220,29 @@ class Pixel {
 	inline function get_r()
 		return switch format {
 			case BGRA: value >> 8 & 0xff;
+			case RGBA: value >> 24 & 0xff;
 		}
 	
 	inline function get_g()
 		return switch format {
 			case BGRA: value >> 16 & 0xff;
+			case RGBA: value >> 16 & 0xff;
 		}
 	
 	inline function get_b()
 		return switch format {
 			case BGRA: value >> 24 & 0xff;
+			case RGBA: value >> 8 & 0xff;
 		}
 	
 	inline function get_a()
 		return switch format {
 			case BGRA: value & 0xff;
+			case RGBA: value & 0xff;
 		}
 }
 
 enum PixelFormat {
 	BGRA;
+	RGBA;
 }
