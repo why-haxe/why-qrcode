@@ -24,13 +24,28 @@ class NodePngCodec {
 				});
 		});
 	}
+	
+	public static function bitmapToBuffer(bitmap:Bitmap):Promise<Buffer> {
+		return Future.async(function(cb) {
+			var png = bitmapToPngObject(bitmap);
+			
+			var bufs = [];
+			png.pack()
+				.on('data', function(data) {
+					bufs.push(data);
+				})
+				.on('end', function(data) {
+					cb(Success(Buffer.concat(bufs)));
+				})
+				.on('error', function(e:js.Error) {
+					cb(Failure(tink.core.Error.withData(e.message, e)));
+				});
+		});
+	}
+	
 	public static function bitmapToFile(bitmap:Bitmap, path:String):Promise<Noise> {
 		return Future.async(function(cb) {
-			var png = new PNG({
-				width: bitmap.width,
-				height: bitmap.height,
-			});
-			png.data = Buffer.hxFromBytes(bitmap.pixels);
+			var png = bitmapToPngObject(bitmap);
 			png.pack().pipe(Fs.createWriteStream(path))
 				.on('close', cb.bind(Success(Noise)))
 				.on('error', function(e:js.Error) {
@@ -38,6 +53,15 @@ class NodePngCodec {
 				});
 		});
 	}
+	static function bitmapToPngObject(bitmap:Bitmap):PNG {
+		var png = new PNG({
+			width: bitmap.width,
+			height: bitmap.height,
+		});
+		png.data = Buffer.hxFromBytes(bitmap.pixels);
+		return png;
+	}
+		
 }
 
 
