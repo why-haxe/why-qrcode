@@ -1,12 +1,23 @@
-# QR Code for Haxe
+# Why QR Code
 
-Feature: 
+Features: 
 
-- QR Code over Image
+- Overlay QR Code on an image (see demo below)
+- Generate data URL for browser use (js only)
+- Generate OpenFL sprite
 
 ## Usage
 
-See tests folder
+```haxe
+import qrcode.*;
+
+var encoder:Encoder = /* pick one implemenation from the qrcode.encoder package */;
+var printer:Printer = /* pick one implemenation from the qrcode.printer package */;
+
+encoder.encode('https://haxe.org/') // encode a string value
+	.next(printer.print) // a printer converts the raw QR code data into specific formats (e.g. DataURL, OpenFL Sprite, etc)
+	.next(output -> trace(output)); // make use of the converted output
+```
 
 ## Demo: QR Code over Image
 
