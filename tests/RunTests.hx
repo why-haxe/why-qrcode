@@ -20,11 +20,16 @@ class RunTests {
 		]).handle(function(o) trace(Std.string(o)));
 	}
 	
+	
 	static function run(options, suffix) {
 		var encoder = new NodeEncoder();
 		var filename = 'haxe';
 		return encoder.encode('https://haxe.org/')
 			.next(function(data) {
+				
+				var ascii = new qrcode.printer.AsciiPrinter();
+				ascii.print(data).handle(function(o) Sys.println(o.sure()));
+				
 				return NodePngCodec.bitmapFromFile('tests/$filename.png')
 					.next(function(bitmap) return new ImagePrinter(bitmap, options).print(data));
 			})

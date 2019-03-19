@@ -14,9 +14,9 @@ class AsciiPrinter implements Printer<String> {
 		buf.add('\n');
 		buf.add('\n');
 		buf.add('\n');
-		for(x in 0...data.length) {
-			for(y in 0...data[0].length)
-				buf.add(data[x][y] == 1 ? filled : empty);
+		for(y in 0...data.size) {
+			for(x in 0...data.size)
+				buf.add(data.get(x, y) ? filled : empty);
 			buf.add('\n');
 		}
 		buf.add('\n');
