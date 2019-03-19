@@ -1,4 +1,4 @@
-package qrcode.encoder;
+package why.qrcode.encoder;
 
 using tink.CoreApi;
 

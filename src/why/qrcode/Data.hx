@@ -1,4 +1,4 @@
-package qrcode;
+package why.qrcode;
 
 abstract Data(Array<Array<Int>>) from Array<Array<Int>> {
 	public inline function new(data)

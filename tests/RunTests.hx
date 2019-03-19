@@ -1,8 +1,8 @@
 package ;
 
-import qrcode.encoder.NodeEncoder;
-import qrcode.printer.ImagePrinter;
-import qrcode.helper.png.NodePngCodec;
+import why.qrcode.encoder.NodeEncoder;
+import why.qrcode.printer.ImagePrinter;
+import why.qrcode.helper.png.NodePngCodec;
 import js.node.Buffer;
 import sys.io.File;
 using tink.CoreApi;
@@ -27,7 +27,7 @@ class RunTests {
 		return encoder.encode('https://haxe.org/')
 			.next(function(data) {
 				
-				var ascii = new qrcode.printer.AsciiPrinter();
+				var ascii = new why.qrcode.printer.AsciiPrinter();
 				ascii.print(data).handle(function(o) Sys.println(o.sure()));
 				
 				return NodePngCodec.bitmapFromFile('tests/$filename.png')

@@ -1,7 +1,7 @@
-package qrcode.printer;
+package why.qrcode.printer;
 
 import js.Browser.document;
-import qrcode.Printer;
+import why.qrcode.Printer;
 using tink.CoreApi;
 
 class DataUrlPrinter implements Printer<String> {

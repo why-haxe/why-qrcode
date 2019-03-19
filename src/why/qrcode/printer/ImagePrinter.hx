@@ -1,7 +1,7 @@
-package qrcode.printer;
+package why.qrcode.printer;
 
 import haxe.io.*;
-import qrcode.Printer;
+import why.qrcode.Printer;
 using tink.CoreApi;
 
 private typedef Options = {

@@ -1,6 +1,6 @@
-package qrcode.encoder;
+package why.qrcode.encoder;
 
-import qrcode.*;
+import why.qrcode.*;
 using tink.CoreApi;
 
 class NodeEncoder implements Encoder {

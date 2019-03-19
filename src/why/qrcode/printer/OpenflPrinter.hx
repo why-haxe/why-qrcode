@@ -1,6 +1,6 @@
-package qrcode.printer;
+package why.qrcode.printer;
 
-import qrcode.*;
+import why.qrcode.*;
 import openfl.display.*;
 
 using tink.CoreApi;

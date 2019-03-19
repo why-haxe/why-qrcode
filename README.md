@@ -9,7 +9,7 @@ Features:
 ## Usage
 
 ```haxe
-import qrcode.*;
+import why.qrcode.*;
 
 var encoder:Encoder = /* pick one implemenation from the qrcode.encoder package */;
 var printer:Printer = /* pick one implemenation from the qrcode.printer package */;

@@ -1,11 +1,11 @@
-package qrcode.helper.png;
+package why.qrcode.helper.png;
 
 import js.node.Buffer;
 import js.node.Fs;
 import js.node.stream.Writable;
 import js.node.stream.Readable;
 import js.node.events.EventEmitter;
-import qrcode.printer.ImagePrinter;
+import why.qrcode.printer.ImagePrinter;
 
 using tink.CoreApi;
 

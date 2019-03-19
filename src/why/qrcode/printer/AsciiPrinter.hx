@@ -1,6 +1,6 @@
-package qrcode.printer;
+package why.qrcode.printer;
 
-import qrcode.Printer;
+import why.qrcode.Printer;
 using tink.CoreApi;
 
 class AsciiPrinter implements Printer<String> {

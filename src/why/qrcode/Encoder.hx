@@ -1,4 +1,4 @@
-package qrcode;
+package why.qrcode;
 
 using tink.CoreApi;
 
